@@ -1,0 +1,18 @@
+# This function is run every time fish displays a new prompt.
+function fish_prompt
+  set_color --bold brblue # pwd color
+  set pwdLen (string length $PWD)
+  if test $pwdLen -le $remaining
+    echo -n $PWD # -n suppresses newline at end
+    set remaining (math "$remaining - $pwdLen")
+  else
+    echo -n (prompt_pwd) # abbreviated working directory
+    set remaining 0 # so nothing else is output on this line
+  end
+
+
+  # Always display "fish" prompt on new line.
+  set_color normal
+  # This uses printf instead of echo to output a leading newline.
+  printf '\\n>  ' # uses Unicode for tropical fish emoji &#x1F420;
+end
